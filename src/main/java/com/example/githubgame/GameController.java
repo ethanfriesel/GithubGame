@@ -36,6 +36,7 @@ public class GameController {
         selected = false;
         game = new GameLogic();
         term = game.run(turn);
+        text = new Label();
         text.setText(term.getDefinition());
         choices = term.getWordChoices();
 
@@ -45,7 +46,10 @@ public class GameController {
         Button buttonClicked = (Button) itemClicked.getSource();
         if (buttonClicked.getText().equals("Submit")) {
             if (selected) {
-
+                selected = false;
+            }
+            else {
+                buttonA.setStyle(SELECTED_COLOR);
             }
             submit.setStyle(SELECTED_COLOR);
         }
