@@ -34,18 +34,6 @@ public class VocabTerm {
         return wordChoices;
     }
 
-    public boolean contains(String in){
-        if (word.equals(in))
-            return true;
-        if (wordChoices == null){
-            return false;
-        }
-        for (int i = 0; i < GameLogic.NUM_CHOICES_EASY - 1; i++){
-            if (wordChoices[i].equals(in))
-                return true;
-        }
-        return false;
-    }
     public void inputPositions(String[] choices) {
         int correctPlace = (int) (Math.random() * GameLogic.NUM_CHOICES_EASY);
         int place = 0;
@@ -63,6 +51,6 @@ public class VocabTerm {
             }
         }
         if (correctPlace == GameLogic.NUM_CHOICES_EASY - 1)
-            wordChoices[4] = word;
+            wordChoices[3] = word;
     }
 }

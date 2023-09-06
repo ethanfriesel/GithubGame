@@ -63,4 +63,7 @@ public class GameLogic {
         currentCard = new VocabTerm(vocabTerms.get(turn).getWord(), vocabTerms.get(turn).getDefinition(), vocabTerms.get(choices.get(0)).getWord(), vocabTerms.get(choices.get(1)).getWord(), vocabTerms.get(choices.get(2)).getWord());
         return currentCard;
     }
+    public int vocabLength(){
+        return vocabTerms.size();
+    }
 }

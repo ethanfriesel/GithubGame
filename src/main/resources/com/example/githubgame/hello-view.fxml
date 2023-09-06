@@ -21,11 +21,12 @@
       </Label>
       <Label text="V. 3.2.1" />
       <Separator prefWidth="200.0" />
+      <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" text="Score: " />
       <ScrollPane prefHeight="60.0" prefWidth="388.0">
          <content>
             <VBox prefHeight="85.0" prefWidth="400.0">
                <children>
-                  <Label fx:id="text" alignment="TOP_CENTER" prefHeight="58.0" prefWidth="406.0" text="text" wrapText="true" />
+                  <Label fx:id="text" alignment="TOP_CENTER" prefHeight="58.0" prefWidth="406.0" text="test" wrapText="true" />
                </children>
             </VBox>
          </content>
