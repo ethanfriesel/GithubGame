@@ -65,39 +65,38 @@ public class GameController {
 
     public void buttonClicked(ActionEvent itemClicked){
         Button buttonClicked = (Button) itemClicked.getSource();
-        if (buttonClicked.getText().equals("Submit") && turn < game.vocabLength()) {
-            if (selected != -1) {
-                clearButtons();
-                if (buttons[selected].getText().equals(term.getWord())){
-                    correct++;
+        if (turn < game.vocabLength()) {
+            if (buttonClicked.getText().equals("Submit")) {
+                if (selected != -1) {
+                    clearButtons();
+                    if (buttons[selected].getText().equals(term.getWord())) {
+                        correct++;
+                    }
+                    selected = -1;
+                    turn++;
+                    updateScore();
+                    if (turn >= game.vocabLength()) {
+                        text.setText("Your final score was " + correct + "/" + game.vocabLength());
+                    } else {
+                        term = game.run(turn);
+                        text.setText(term.getDefinition());
+                        choices = new ArrayList<String>(Arrays.asList(term.getWordChoices()));
+                        buttonA.setText(choices.get(0));
+                        buttonB.setText(choices.get(1));
+                        buttonC.setText(choices.get(2));
+                        buttonD.setText(choices.get(3));
+                    }
                 }
-                selected = -1;
-                turn++;
-                updateScore();
-                if (turn >= game.vocabLength()){
-                    text.setText("Your final score was " + correct + "/" + game.vocabLength());
+            } else {
+                int current = choices.indexOf(buttonClicked.getText());
+                if (selected == current) {
+                    clearButtons();
+                    selected = -1;
+                } else {
+                    clearButtons();
+                    selected = current;
+                    buttons[selected].setStyle(SELECTED_COLOR);
                 }
-                else {
-                    term = game.run(turn);
-                    text.setText(term.getDefinition());
-                    choices = new ArrayList<String>(Arrays.asList(term.getWordChoices()));
-                    buttonA.setText(choices.get(0));
-                    buttonB.setText(choices.get(1));
-                    buttonC.setText(choices.get(2));
-                    buttonD.setText(choices.get(3));
-                }
-            }
-        }
-        else {
-            int current = choices.indexOf(buttonClicked.getText());
-            if (selected == current) {
-                clearButtons();
-                selected = -1;
-            }
-            else {
-                clearButtons();
-                selected = current;
-                buttons[selected].setStyle(SELECTED_COLOR);
             }
         }
     }
