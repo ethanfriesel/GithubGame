@@ -65,7 +65,7 @@ public class GameController {
 
     public void buttonClicked(ActionEvent itemClicked){
         Button buttonClicked = (Button) itemClicked.getSource();
-        if (buttonClicked.getText().equals("Submit")) {
+        if (buttonClicked.getText().equals("Submit") && turn < game.vocabLength()) {
             if (selected != -1) {
                 clearButtons();
                 if (buttons[selected].getText().equals(term.getWord())){
@@ -74,17 +74,18 @@ public class GameController {
                 selected = -1;
                 turn++;
                 updateScore();
-                if (turn > game.vocabLength()){
+                if (turn >= game.vocabLength()){
                     text.setText("Your final score was " + correct + "/" + game.vocabLength());
-                    System.exit(0);
                 }
-                term = game.run(turn);
-                text.setText(term.getDefinition());
-                choices = new ArrayList<String>(Arrays.asList(term.getWordChoices()));
-                buttonA.setText(choices.get(0));
-                buttonB.setText(choices.get(1));
-                buttonC.setText(choices.get(2));
-                buttonD.setText(choices.get(3));
+                else {
+                    term = game.run(turn);
+                    text.setText(term.getDefinition());
+                    choices = new ArrayList<String>(Arrays.asList(term.getWordChoices()));
+                    buttonA.setText(choices.get(0));
+                    buttonB.setText(choices.get(1));
+                    buttonC.setText(choices.get(2));
+                    buttonD.setText(choices.get(3));
+                }
             }
         }
         else {
