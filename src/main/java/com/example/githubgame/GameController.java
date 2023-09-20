@@ -2,8 +2,12 @@ package com.example.githubgame;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.TilePane;
+import javafx.stage.Popup;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +27,7 @@ public class GameController {
     private Button buttonD;
     @FXML
     private Button submit;
+
     private final String UNSELECTED_COLOR = "-fx-background-color: White";
     private final String SELECTED_COLOR = "-fx-background-color: Orange";
     private final String LOW_COLOR = "-fx-background-color: Red";
@@ -32,6 +37,7 @@ public class GameController {
     private final int LOW_SCORE = 70;
     private final int MED_LOW_SCORE = 80;
     private final int MED_HIGH_SCORE = 90;
+    private final String VOWELS = "aeiouAEIOU";
     private Button[] buttons;
 
     private GameLogic game;
@@ -42,16 +48,17 @@ public class GameController {
     private ArrayList<String> choices;
 
     public void initialize() {
+
         turn = 0;
         correct = 0;
         selected = -1;
         game = new GameLogic();
         term = game.run(turn);
-        text.setText(term.getDefinition());
+        text.setText("this" + term.getDefinition());
+
         choices = new ArrayList<String>(Arrays.asList(term.getWordChoices()));
         System.out.println(choices);
         score.setText("Score: 0/0   0%");
-
         buttonA.setText(choices.get(0));
         buttonA.setStyle(UNSELECTED_COLOR);
         buttonB.setText(choices.get(1));
@@ -63,6 +70,7 @@ public class GameController {
         buttons = new Button[] {buttonA, buttonB, buttonC, buttonD};
     }
 
+    public void bClicked
     public void buttonClicked(ActionEvent itemClicked){
         Button buttonClicked = (Button) itemClicked.getSource();
         if (turn < game.vocabLength()) {
@@ -77,6 +85,15 @@ public class GameController {
                     updateScore();
                     if (turn >= game.vocabLength()) {
                         text.setText("Your final score was " + correct + "/" + game.vocabLength());
+                        Popup popup = new Popup();
+                        Label label = new Label("Congratulations, you finished the quiz");
+                        TilePane t = new TilePane();
+                        Scene scene = new Scene(t, 500, 500);
+                        popup.getContent().add(label);
+                        label.setMinWidth(80);
+                        label.setMinHeight(50);
+                        Node itemSource = (Node) itemClicked.getSource();
+                        popup.show(itemSource.getScene().getWindow());
                     } else {
                         term = game.run(turn);
                         text.setText(term.getDefinition());
@@ -92,10 +109,16 @@ public class GameController {
                 if (selected == current) {
                     clearButtons();
                     selected = -1;
+                    text.setText("this" + term.getDefinition());
                 } else {
                     clearButtons();
                     selected = current;
                     buttons[selected].setStyle(SELECTED_COLOR);
+                    String word = "a";
+                    char currentString = buttons[selected].getText().charAt(0);
+                    if (VOWELS.indexOf(currentString) != -1)
+                        word+="n";
+                    text.setText(word + " " + buttons[selected].getText() + term.getDefinition());
                 }
             }
         }

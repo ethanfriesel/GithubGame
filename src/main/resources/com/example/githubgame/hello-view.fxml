@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -20,6 +22,11 @@
          </font>
       </Label>
       <Label text="V. 3.2.1" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../D6utOzDW4AAZU1m.jpg" />
+         </image>
+      </ImageView>
       <Separator prefWidth="200.0" />
       <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" text="Score: " />
       <ScrollPane prefHeight="60.0" prefWidth="388.0">
