@@ -7,7 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +31,20 @@ public class GameController {
     private Button buttonD;
     @FXML
     private Button submit;
+    @FXML
+    public void popup() {
+        Stage popup = new Stage();
+
+        Label label = new Label("Thanks for Playing");
+        VBox v = new VBox();
+        v.getChildren().add(label);
+        Scene scene = new Scene(v, 300, 300);
+        popup.setScene(scene);
+        popup.initStyle(StageStyle.UTILITY);
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.setTitle("Game Over");
+        popup.showAndWait();
+    }
 
     private final String UNSELECTED_COLOR = "-fx-background-color: White";
     private final String SELECTED_COLOR = "-fx-background-color: Orange";
@@ -70,7 +88,6 @@ public class GameController {
         buttons = new Button[] {buttonA, buttonB, buttonC, buttonD};
     }
 
-    public void bClicked
     public void buttonClicked(ActionEvent itemClicked){
         Button buttonClicked = (Button) itemClicked.getSource();
         if (turn < game.vocabLength()) {
@@ -85,15 +102,8 @@ public class GameController {
                     updateScore();
                     if (turn >= game.vocabLength()) {
                         text.setText("Your final score was " + correct + "/" + game.vocabLength());
-                        Popup popup = new Popup();
-                        Label label = new Label("Congratulations, you finished the quiz");
-                        TilePane t = new TilePane();
-                        Scene scene = new Scene(t, 500, 500);
-                        popup.getContent().add(label);
-                        label.setMinWidth(80);
-                        label.setMinHeight(50);
-                        Node itemSource = (Node) itemClicked.getSource();
-                        popup.show(itemSource.getScene().getWindow());
+                        popup();
+                        System.exit(0);
                     } else {
                         term = game.run(turn);
                         text.setText(term.getDefinition());
