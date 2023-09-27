@@ -106,7 +106,7 @@ public class GameController {
                         System.exit(0);
                     } else {
                         term = game.run(turn);
-                        text.setText(term.getDefinition());
+                        text.setText("this" + term.getDefinition());
                         choices = new ArrayList<String>(Arrays.asList(term.getWordChoices()));
                         buttonA.setText(choices.get(0));
                         buttonB.setText(choices.get(1));
